@@ -13,13 +13,21 @@
  */
 
  function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
-    function checkTarget(root: TreeNode, curSum: number) {
-        if (!root) return false;
-        const { val, left, right } = root;
-        if (!left && !right) return curSum + val === targetSum;
-        return checkTarget(left, val + curSum) || checkTarget(right, val + curSum)
-    }
-    
-    if(!root) return false; // evil trap
-    return checkTarget(root, 0)
+    if (!root) return false;
+    const { left, right, val } = root;
+    if (!left && !right) return targetSum === val;
+    return hasPathSum(left, targetSum - val) || hasPathSum(right, targetSum - val)
 };
+
+
+//  function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
+//     function checkTarget(root: TreeNode, curSum: number) {
+//         if (!root) return false;
+//         const { val, left, right } = root;
+//         if (!left && !right) return curSum + val === targetSum;
+//         return checkTarget(left, val + curSum) || checkTarget(right, val + curSum)
+//     }
+    
+//     if(!root) return false; // evil trap
+//     return checkTarget(root, 0)
+// };
